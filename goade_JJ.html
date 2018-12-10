@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高德街景</title>
+    <style>
+        .map_box{width: 2650px;height: 1080px;position: absolute;z-index: 12}
+        body,html{
+            box-sizing: border-box;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 2650px;height: 1080px;
+        }
+        div{box-sizing: border-box;}
+        #container_2{
+            width: 2650px;height: 1080px;position:absolute;z-index: 10
+        }
+        #panel {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: 0;
+            left: 100px;
+            margin-left: -100px;
+            z-index: 20;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="panel">
+
+</div>
+<div class="map_box" id="container"></div>
+<div id="container_2"></div>
+<script src="./else/jquery-3.1.1.min.js"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=4DWBZ-XUGCI-Z4NG2-5ZT4C-PNWKE-CJBVV"></script>
+<script src="http://webapi.amap.com/maps?v=1.4.11&key=2ec4893455615c7ed4d762f379188bd4&plugin=Map3D"></script>
+<script>
+
+    let mapx = new qq.maps.Map(document.getElementById("container_2"), {
+        // 地图的中心地理坐标。
+        center: new qq.maps.LatLng(31.149132,120.670809),
+        zoom: 16
+    });
+
+    let panoLayer = new qq.maps.PanoramaLayer();
+    panoLayer.setMap(mapx);
+    let panoService = new qq.maps.PanoramaService();
+
+    map = new AMap.Map('container', {
+        resizeEnable: true,
+        center: [120.670809,31.149132],
+        // dragEnable:false,
+        // zoomEnable:false,
+        keyboardEnable:false,
+        defaultCursor:'pointer',
+        features: ['bg', 'road', 'point'],//设置地图默认显示要素
+        zoom: 16,
+        viewMode:'3D',
+        pitch:0,
+        // zIndex:10,
+        mapStyle:'amap://styles/normal',
+        // layers: [
+        //     new AMap.TileLayer({}),
+        //     // 楼块图层
+        //     Buildings
+        // ],
+    });
+
+    let makerList = [[120.670809,31.149132],[120.667291,31.152155],[120.671765,31.154059],[120.668268,31.148727]];
+    makerClick(makerList);
+    function makerClick(makerList) {
+        console.log(makerList);
+        for(let i = 0;i < makerList.length;i++){
+
+            let marker = new AMap.Marker({
+                map:map,
+                position:[makerList[i][0],makerList[i][1]],
+                label: {
+                    offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
+                }
+            });
+            marker.on('click',function(e){
+                $('#panel').show();
+                // 创建街景
+                let t = {lat:makerList[i][1],lng:makerList[i][0]};
+                panoService.getPano(t, 1000, function(result) {
+                    console.log(t);
+                    // document.getElementById("panel").innerHTML = result ? result.svid : alert('此处没有街景哦');
+                    // 创建街景
+                    if(result === null){
+                        alert('打扰了,此处暂无街景')
+                    }else {
+                        let pano = new qq.maps.Panorama(document.getElementById('panel'), {
+                            pano: result.svid,
+                            disableMove: false,
+                            disableFullScreen: false,    //设置是否全屏
+                            zoom:1,
+                            pov:{
+                                heading:0,              //设置南北仰角
+                                pitch:12.6                 //设置与地面的夹角
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    }
+
+</script>
+</body>
+</html>
