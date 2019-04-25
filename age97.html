@@ -41,22 +41,7 @@
     <div class="quc">
         <div class="ageTitle">驱虫记录</div>
         <div class="qucBox">
-            <div class="quc-item">
-                <p>2019-3-18</p>
-                <p>体内外驱虫</p>
-            </div>
-            <div class="quc-item">
-                <p>2019-4-22</p>
-                <p>体内驱虫</p>
-            </div>
-            <div class="quc-item">
-                <p>2019-4-17</p>
-                <p>体外驱虫</p>
-            </div>
-            <div class="quc-item">
-                <p>2019-4-24</p>
-                <p>体外驱虫</p>
-            </div>
+
         </div>
     </div>
     <div class="quc">
@@ -70,6 +55,20 @@
     </div>
     <script src="else/jquery-3.1.1.min.js"></script>
     <script>
+        $.ajax({
+            url:'json/yimiao.json',
+            success:function (data) {
+                let tpl = '';
+                for(item of data.quChong_list){
+                    tpl += `<div class="quc-item">
+                <p>${item.time}</p>
+                <p>${item.title}</p>
+            </div>`
+                }
+                $('.qucBox').html(tpl)
+            }
+        })
+
         let day = datedifference('2019/3/6',getNowFormatDate());
         $('#age').html(conversion(day))
         // document.getElementById('age').innerText(conversion(day));
