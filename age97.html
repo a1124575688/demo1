@@ -7,15 +7,62 @@
         #age{
             display: flex;
             justify-content: center;
-            margin-top: 400px;
             font-size: 40px;
             font-weight: bold;
+        }
+        .ageTitle{
+            margin: 0 auto;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 100px;
+        }
+        .qucBox{
+            width: 350px;
+            height: 500px;
+            margin: 0 auto;
+            overflow-y: auto;
+            font-size: 30px;
+        }
+        .quc-item{
+            display: flex;
+            justify-content: center;
+        }
+        .quc-item p:first-child{
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
+<div class="ageTitle">年龄</div>
     <div id="age">
 
+    </div>
+    <div class="quc">
+        <div class="ageTitle">驱虫记录</div>
+        <div class="qucBox">
+            <div class="quc-item">
+                <p>2019-3-18</p>
+                <p>体内外驱虫</p>
+            </div>
+            <div class="quc-item">
+                <p>2019-4-22</p>
+                <p>体内驱虫</p>
+            </div>
+            <div class="quc-item">
+                <p>2019-4-24</p>
+                <p>体外驱虫</p>
+            </div>
+        </div>
+    </div>
+    <div class="quc">
+        <div class="ageTitle">体重记录</div>
+        <div class="qucBox">
+            <div class="quc-item">
+                <p>2019-4-23</p>
+                <p>1.5kg</p>
+            </div>
+        </div>
     </div>
     <script src="else/jquery-3.1.1.min.js"></script>
     <script>
