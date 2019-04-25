@@ -19,7 +19,7 @@
     </div>
     <script src="else/jquery-3.1.1.min.js"></script>
     <script>
-        let day = datedifference('2019-3-6',getNowFormatDate());
+        let day = datedifference('2019/3/6',getNowFormatDate());
         $('#age').html(conversion(day))
         // document.getElementById('age').innerText(conversion(day));
         console.log(conversion(day))
@@ -69,7 +69,7 @@
                 }else if(days == 0){
                     return  year+'年'+month+'个月'
                 }else{
-                    return  String(year)+'年'+String(month)+'个月'+String(days)+'天'
+                    return  year+'年'+month+'个月'+days+'天'
                 }
             }
         }
