@@ -40,17 +40,13 @@
     </div>
     <div class="quc">
         <div class="ageTitle">驱虫记录</div>
-        <div class="qucBox">
+        <div class="qucBox dataList">
 
         </div>
     </div>
     <div class="quc">
         <div class="ageTitle">体重记录</div>
-        <div class="qucBox">
-            <div class="quc-item">
-                <p>2019-4-23</p>
-                <p>1.63kg</p>
-            </div>
+        <div class="qucBox tizhong">
         </div>
     </div>
     <script src="else/jquery-3.1.1.min.js"></script>
@@ -59,13 +55,21 @@
             url:'json/yimiao.json',
             success:function (data) {
                 let tpl = '';
+                let tpl2 = ''
                 for(item of data.quChong_list){
                     tpl += `<div class="quc-item">
                 <p>${item.time}</p>
                 <p>${item.title}</p>
             </div>`
                 }
-                $('.qucBox').html(tpl)
+                $('.dataList').html(tpl)
+                for(item of data.tizhong_list){
+                    tpl2 += `<div class="quc-item">
+                <p>${item.time}</p>
+                <p>${item.title}</p>
+            </div>`
+                }
+                $('.tizhong').html(tpl2)
             }
         })
 
